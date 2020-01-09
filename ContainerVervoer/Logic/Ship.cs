@@ -38,13 +38,13 @@ namespace Logic
             int SumWeightLeft = 0;
             foreach (Row row in Rows)
             {
-                foreach(Stack stack in row.Stacks)
+                foreach (Stack stack in row.Stacks)
                 {
-                    if(stack.Location != Location.Left)
+                    if (stack.Location != Location.Left)
                     {
                         continue;
                     }
-                    foreach(Container container in stack.Containers)
+                    foreach (Container container in stack.Containers)
                     {
                         SumWeightLeft += container.Weight;
                     }
@@ -75,11 +75,11 @@ namespace Logic
 
         public int GetWeightDifference()
         {
-            if(GetWeightRight() > GetWeightLeft())
+            if (GetWeightRight() > GetWeightLeft())
             {
                 return GetWeightRight() - GetWeightLeft();
             }
-            else if(GetWeightLeft() > GetWeightRight())
+            else if (GetWeightLeft() > GetWeightRight())
             {
                 return GetWeightLeft() - GetWeightRight();
             }
@@ -116,14 +116,17 @@ namespace Logic
                 {
                     string stacksStacksString = ",";
                     string weightsStackString = ",";
-                     
-                        foreach (Container container in stack.Containers)
-                        {
-                            stacksStacksString += "" + ((int)container.Load + 1);
-                            weightsStackString += "-" + container.Weight.ToString();
-                        }
+
+                    foreach (Container container in stack.Containers)
+                    {
+                        stacksStacksString += "" + ((int)container.Load + 1);
+                        weightsStackString += "-" + container.Weight.ToString();
+                    }
+                    if (stack.Containers.Count() != 0)
+                    {
                         weightsStackString = weightsStackString.Remove(weightsStackString.IndexOf("-"), 1);
-                    
+                    }
+
                     stacksRowString += stacksStacksString;
                     weightsRowString += weightsStackString;
                 }

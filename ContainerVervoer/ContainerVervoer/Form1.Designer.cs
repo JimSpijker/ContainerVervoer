@@ -47,6 +47,7 @@
             this.ErrorMessage = new System.Windows.Forms.Label();
             this.tBMaxWeight = new System.Windows.Forms.TextBox();
             this.tBUrl = new System.Windows.Forms.TextBox();
+            this.tBTotalWeight = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nUDContainerWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUDShipLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUDShipWidth)).BeginInit();
@@ -259,11 +260,20 @@
             this.tBUrl.Size = new System.Drawing.Size(181, 20);
             this.tBUrl.TabIndex = 21;
             // 
+            // tBTotalWeight
+            // 
+            this.tBTotalWeight.Location = new System.Drawing.Point(42, 246);
+            this.tBTotalWeight.Name = "tBTotalWeight";
+            this.tBTotalWeight.ReadOnly = true;
+            this.tBTotalWeight.Size = new System.Drawing.Size(120, 20);
+            this.tBTotalWeight.TabIndex = 22;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(521, 375);
+            this.Controls.Add(this.tBTotalWeight);
             this.Controls.Add(this.tBUrl);
             this.Controls.Add(this.tBMaxWeight);
             this.Controls.Add(this.ErrorMessage);
@@ -315,6 +325,7 @@
         private System.Windows.Forms.Label ErrorMessage;
         private System.Windows.Forms.TextBox tBMaxWeight;
         private System.Windows.Forms.TextBox tBUrl;
+        private System.Windows.Forms.TextBox tBTotalWeight;
     }
 }
 

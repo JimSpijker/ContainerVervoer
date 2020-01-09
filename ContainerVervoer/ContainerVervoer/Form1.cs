@@ -23,18 +23,29 @@ namespace ContainerVervoer
             ErrorMessage.Text = "";
             tBMaxWeight.Text = Convert.ToString(nUDShipLength.Value * nUDShipWidth.Value * (Logic.Container.maxStackedWeight + Logic.Container.maxWeight));
             Random random = new Random();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 25; i++)
             {
-                lBContainers.Items.Add(new Logic.Container(LoadType.Cooled, random.Next(29, 30)));
+                lBContainers.Items.Add(new Logic.Container(LoadType.Cooled, 30));
             }
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 80; i++)
             {
-                lBContainers.Items.Add(new Logic.Container(LoadType.Normal, random.Next(29, 30)));
+                lBContainers.Items.Add(new Logic.Container(LoadType.Normal, 30));
             }
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 15; i++)
             {
-                lBContainers.Items.Add(new Logic.Container(LoadType.Valuable, random.Next(29, 30)));
+                lBContainers.Items.Add(new Logic.Container(LoadType.Valuable, 30));
             }
+            GiveTotalWeight();
+        }
+
+        private void GiveTotalWeight()
+        {
+            int sumWeight = 0;
+            foreach (Logic.Container container in lBContainers.Items)
+            {
+                sumWeight += container.Weight;
+            }
+            tBTotalWeight.Text = "" + sumWeight;
         }
 
         private void bAddContainer_Click(object sender, EventArgs e)
@@ -53,8 +64,9 @@ namespace ContainerVervoer
                 {
                     lBContainers.Items.Add(new Logic.Container(LoadType.Valuable, Convert.ToInt32(nUDContainerWeight.Value)));
                 }
-
+                GiveTotalWeight();
             }
+            
         }
 
         private void bDeleteContainer_Click(object sender, EventArgs e)
@@ -62,6 +74,7 @@ namespace ContainerVervoer
             if(lBContainers.SelectedItem != null)
             {
                 lBContainers.Items.Remove(lBContainers.SelectedItem);
+                GiveTotalWeight();
             }
         }
 
@@ -106,7 +119,7 @@ namespace ContainerVervoer
                     ErrorMessage.Text = "Oops, something went wrong!";
                     break;
             }
-            string url = "https://i872272core.venus.fhict.nl/ContainerVisualizer/index.html?" + dockmaster.Ship.ToString();
+            string url = "https://i872272core.venus.fhict.nl/ContainerVisualizer/index.html?" + ConvertShip(dockmaster.Ship).ToString();
             tBUrl.Text = url;
         }
 
@@ -120,5 +133,18 @@ namespace ContainerVervoer
             tBMaxWeight.Text = Convert.ToString(nUDShipLength.Value * nUDShipWidth.Value * (Logic.Container.maxStackedWeight + Logic.Container.maxWeight));
         }
 
+
+        private Ship ConvertShip(Ship ship)
+        {
+            Ship newShip = new Ship(ship.Width, ship.Length);
+            for (int i = 0; i < ship.Width; i++)
+            {
+                for (int sI = 0; sI < ship.Rows[i].Stacks.Count(); sI++)
+                {
+                    newShip.Rows[sI].Stacks[i] = ship.Rows[i].Stacks[sI];
+                }
+            }
+            return newShip;
+        }
     }
 }
